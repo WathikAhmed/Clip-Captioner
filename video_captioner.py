@@ -11,6 +11,7 @@ import numpy as np
 from typing import List, Dict, Tuple
 from PIL import Image, ImageDraw, ImageFont
 import os
+import argparse
 
 def transcribe_with_word_timestamps(video_path: str) -> List[Dict]:
     """
@@ -188,8 +189,22 @@ def compose_final_video_with_captions(video_path: str, caption_clips: List[Image
 
 def main():
     """Main function to process video with captions."""
-    input_video = "stitched_output.mp4"
-    output_video = "captioned_output.mp4"
+    parser = argparse.ArgumentParser(description="Add word-by-word animated captions to video")
+    parser.add_argument("input", help="Input video file path")
+    parser.add_argument("-o", "--output", help="Output video file path (default: adds '_captioned' to input filename)")
+    
+    args = parser.parse_args()
+    
+    input_video = args.input
+    if args.output:
+        output_video = args.output
+    else:
+        # Create captioned folder if it doesn't exist
+        os.makedirs("captioned", exist_ok=True)
+        # Generate output filename in captioned folder
+        filename = os.path.basename(input_video)
+        name, ext = os.path.splitext(filename)
+        output_video = os.path.join("captioned", f"{name}_captioned{ext}")
     
     # Define words to highlight in yellow (customize as needed)
     highlight_words = ["amazing", "incredible", "wow", "perfect", "awesome", "fantastic"]

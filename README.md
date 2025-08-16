@@ -16,12 +16,24 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. Place your input video file as `stitched_output.mp4` in the same directory
-2. Run the script:
+**Basic usage:**
 ```bash
-python video_captioner.py
+python video_captioner.py input_video.mp4
 ```
-3. The captioned video will be saved as `captioned_output.mp4`
+
+**Specify output file:**
+```bash
+python video_captioner.py input_video.mp4 -o output_video.mp4
+```
+
+**Examples:**
+```bash
+# Process video.mp4, output will be captioned/video_captioned.mp4
+python video_captioner.py video.mp4
+
+# Process with custom output name
+python video_captioner.py my_video.mp4 --output final_video.mp4
+```
 
 ## Features
 
